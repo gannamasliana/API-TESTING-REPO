@@ -1,0 +1,984 @@
+{
+	"info": {
+		"_postman_id": "93f04fe0-4d5a-4a19-95ac-a64c44338164",
+		"name": "ClickUp Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39389460",
+		"_collection_link": "https://www.postman.com/gannainimco/workspace/api-testing-with-robot-dreams/collection/39389460-93f04fe0-4d5a-4a19-95ac-a64c44338164?action=share&source=collection_link&creator=39389460"
+	},
+	"item": [
+		{
+			"name": "Test ClickUp",
+			"item": [
+				{
+					"name": "Spaces",
+					"item": [
+						{
+							"name": "Get Spaces",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/team/90151103135/space",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"team",
+										"90151103135",
+										"space"
+									]
+								},
+								"description": "Generated from cURL: curl --request GET \\\r\n     --url https://api.clickup.com/api/v2/team/90151103135/space \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json'"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Space",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/team/{team_id}/space",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"team",
+										"{team_id}",
+										"space"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Goals",
+					"item": [
+						{
+							"name": "Get Goals",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"console.log(jsonData.goals);\r",
+											"//console.log(jsonData.goals[0].id)\r",
+											"// var a={\"id\":\"zzzzzz\", \"2\":\"v\"} a.id  OR var b=[\"a\", \"b\", \"54\", \"23231\"] b[]\r",
+											"\r",
+											"jsonData.goals.forEach(item =>{\r",
+											"    console.log(item.id);\r",
+											"    console.log(item.name);\r",
+											"})\r",
+											"    \r",
+											"    \r",
+											"    "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/team/90151103135/goal",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"team",
+										"90151103135",
+										"goal"
+									]
+								},
+								"description": "Generated from cURL: curl --request GET \\\r\n     --url https://api.clickup.com/api/v2/team/90151103135/goal \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json'"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Goal",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"console.log(jsonData.goal);\r",
+											"\r",
+											"const Ajv = require('ajv');\r",
+											"const ajv = new Ajv();\r",
+											"\r",
+											"\r",
+											"const schema = {\r",
+											"    type: \"object\",\r",
+											"    properties: {\r",
+											"        goal: {\r",
+											"            type: \"object\",\r",
+											"            properties: {\r",
+											"                \"id\": { type: \"string\" },\r",
+											"                \"pretty_id\": { type: \"string\" },\r",
+											"                \"name\": { type: \"string\" },\r",
+											"                \"team_id\": { type: \"string\" },\r",
+											"                \"creator\": { type: \"number\" },\r",
+											"                \"color\": { type: \"null\" },\r",
+											"                \"date_created\": { type: \"string\" },\r",
+											"                \"start_date\": { type: \"null\" },\r",
+											"                \"due_date\": { type: \"null\" },\r",
+											"                \"description\": { type: \"string\" },\r",
+											"                \"private\": { type: \"boolean\" },\r",
+											"                \"archived\": { type: \"boolean\" },\r",
+											"                \"multiple_owners\": { type: \"boolean\" },\r",
+											"                \"editor_token\": { type: \"string\" },\r",
+											"                \"date_updated\": { type: \"string\" },\r",
+											"                \"folder_id\": { type: \"null\" },\r",
+											"                \"folder_name\": { type: \"null\" },\r",
+											"                \"role_subtype\": { type: \"number\" },\r",
+											"                \"members\": { type: \"array\" },\r",
+											"                \"group_members\": { type: \"array\" },\r",
+											"                \"owners\": { type: \"array\" },\r",
+											"                \"key_results\": { type: \"array\" },\r",
+											"                \"key_result_count\": { type: \"number\" },\r",
+											"                \"percent_completed\": { type: \"number\" },\r",
+											"                \"history\": { type: \"array\" },\r",
+											"                \"pretty_url\": { type: \"string\" }\r",
+											"            },\r",
+											"            required: [\"id\", \"pretty_id\", \"name\", \"team_id\", \"creator\", \"date_created\", \"description\", \"private\", \"archived\", \"multiple_owners\", \"editor_token\", \"date_updated\", \"role_subtype\", \"members\", \"group_members\", \"owners\", \"key_results\", \"key_result_count\", \"percent_completed\", \"history\", \"pretty_url\"]\r",
+											"        }\r",
+											"    },\r",
+											"    required: [\"goal\"]\r",
+											"}\r",
+											"\r",
+											"\r",
+											"const validate = ajv.compile(schema);\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Schema is valid\", function () {\r",
+											"   const valid = validate(response);\r",
+											"   pm.expect(valid, JSON.stringify(validate.errors)).to.be.true;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://api.clickup.com/api/v2/goal/0f6dccfc-de66-4a04-922d-c662de2b8a4e",
+									"protocol": "https",
+									"host": [
+										"api",
+										"clickup",
+										"com"
+									],
+									"path": [
+										"api",
+										"v2",
+										"goal",
+										"0f6dccfc-de66-4a04-922d-c662de2b8a4e"
+									]
+								},
+								"description": "Generated from cURL: curl --request GET \\\r\n     --url https://api.clickup.com/api/v2/goal/0f6dccfc-de66-4a04-922d-c662de2b8a4e \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json'"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Goal",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "content-type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n  \"multiple_owners\": true,\r\n  \"name\": \"GM Goal3\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.clickup.com/api/v2/team/90151103135/goal",
+									"protocol": "https",
+									"host": [
+										"api",
+										"clickup",
+										"com"
+									],
+									"path": [
+										"api",
+										"v2",
+										"team",
+										"90151103135",
+										"goal"
+									]
+								},
+								"description": "Generated from cURL: curl --request POST \\\r\n     --url https://api.clickup.com/api/v2/team/90151103135/goal \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json' \\\r\n     --header 'content-type: application/json' \\\r\n     --data '\r\n{\r\n  \"multiple_owners\": true,\r\n  \"name\": \"GM Goal2\"\r\n}\r\n'"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Lists",
+					"item": [
+						{
+							"name": "update list",
+							"item": [
+								{
+									"name": "Update List Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(pm.iterationData.get(\"status\"));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check name is updated\", function () {\r",
+													"    var jsonData = pm.response.json();\r",
+													"    var expectedName =\r",
+													"        pm.collectionVariables.get(\"ListName\");\r",
+													"    pm.expect(jsonData.name).to.eql(expectedName);\r",
+													"});\r",
+													"\r",
+													"//pm.test(\"Status code is 400\", function () {\r",
+													"//    pm.response.to.have.status(400);\r",
+													"//});\r",
+													"//pm.test(\"Body includes Authorization header required\", function () {\r",
+													"//    pm.expect(pm.response.text()).to.include(\"Authorization header required\");\r",
+													"//});\r",
+													"\r",
+													"\r",
+													"\r",
+													"//pm.test(\"Check name\" , function () {\r",
+													"//    var jsonData = pm.response.json();\r",
+													"//    var listName = jsonData.name;\r",
+													"//    var listID = jsonData.id;\r",
+													"//   console.log(\"My json object will be below\");\r",
+													"//    console.log(jsonData.name);\r",
+													"//    console.log(\"my listName:\");\r",
+													"//    console.log(listName);\r",
+													"//    console.log(\"my listID:\");\r",
+													"//    console.log(listID);\r",
+													"//   console.log(\"My json object will be above\")\r",
+													"//pm.expect(jsonData.value).to.eql(100);\r",
+													"//});\r",
+													"\r",
+													"//pm.test(\"Check that List id is 901510840110\", function () {\r",
+													"//    var jsonData = pm.response.json();\r",
+													"//    pm.expect(jsonData.id).to.eql(\"901510840110\");\r",
+													"//});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"console.log(\"before\")\r",
+													"//Math.floor(Math.random()*1000)+1;\r",
+													"//const random = \"TestList\" + randomNumber;\r",
+													"//pm.variables.set(\"randomName\",randomName);\r",
+													"\r",
+													"\r",
+													"var name = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+													"console.log(\"this is my generated name\")\r",
+													"console.log(name)\r",
+													"pm.collectionVariables.set(\"ListName\", name);"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "apikey",
+											"apikey": [
+												{
+													"key": "value",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												},
+												{
+													"key": "key",
+													"value": "Authorization",
+													"type": "string"
+												},
+												{
+													"key": "in",
+													"value": "header",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+											},
+											{
+												"key": "accept",
+												"value": "application/json"
+											},
+											{
+												"key": "content-type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "\r\n{\r\n  \"due_date_time\": true,\r\n  \"unset_status\": true,\r\n  \"name\": \"{{name}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/list/{{list_id}}",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"list",
+												"{{list_id}}"
+											]
+										},
+										"description": "Generated from cURL: curl --request PUT \\\r\n     --url https://api.clickup.com/api/v2/list/901510840110 \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json' \\\r\n     --header 'content-type: application/json' \\\r\n     --data '\r\n{\r\n  \"due_date_time\": true,\r\n  \"unset_status\": true,\r\n  \"name\": \"U GM List Name\"\r\n}\r\n'"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Get Lists",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"console.log(\"This is my message in Pre Request Script\")\r",
+											"pm.environment.set(\"nex\", \"GM_22\");\r",
+											"pm.environment.set(\"my_value_from_script\", \"GM_variable_updated\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"console.log(jsonData.lists);\r",
+											"\r",
+											"jsonData.lists.forEach(item =>{\r",
+											"    //console.log(lists.id); console.log(lists.name);\r",
+											"    console.log(`name is\" ${item.name}\" and id is\" ${item.id}\"`)\r",
+											"    \r",
+											"})\r",
+											"//pm.test(\"Body include U GM List Name\", function () {\r",
+											"//    pm.expect(pm.response.text()).to.include(\"U GM List Name\");\r",
+											"//});\r",
+											"//pm.test(\"Body do not include 901510875649\", function () {\r",
+											"//        pm.expect(pm.response.text()).to.include(\"901510875649\");\r",
+											"//});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/folder/90156774841/list",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"folder",
+										"90156774841",
+										"list"
+									]
+								},
+								"description": "Generated from cURL: curl --request GET \\\r\n     --url https://api.clickup.com/api/v2/folder/90156774841/list \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json'"
+							},
+							"response": []
+						},
+						{
+							"name": "Create List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"var listID = jsonData.id;\r",
+											"var listName = jsonData.name;\r",
+											"pm.environment.set(\"list_id\", listID);\r",
+											"console.log(listID);\r",
+											"console.log(listName);\r",
+											"\r",
+											"pm.test(\"Body includes List Name\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(listName);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "content-type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n  \"name\": \"{{$randomCatchPhrase}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/folder/90156774841/list",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"folder",
+										"90156774841",
+										"list"
+									]
+								},
+								"description": "Generated from cURL: curl --request POST \\\r\n     --url https://api.clickup.com/api/v2/folder/90156774841/list \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json' \\\r\n     --header 'content-type: application/json' \\\r\n     --data '\r\n{\r\n  \"name\": \"GM List Name\"\r\n}\r\n'"
+							},
+							"response": []
+						},
+						{
+							"name": "Get List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"const Ajv = require('ajv');\r",
+											"const ajv = new Ajv();\r",
+											"\r",
+											"const schema = {\r",
+											"   type: \"object\",\r",
+											"   properties: {\r",
+											"       id: { type: \"string\" },\r",
+											"       name: { type: \"string\" },\r",
+											"       deleted: { type: \"boolean\" },\r",
+											"       orderindex: { type: \"integer\" },\r",
+											"       content: { type: \"string\" },\r",
+											"       priority: { type: [\"null\", \"string\"] },\r",
+											"       assignee: { type: [\"null\", \"object\"] },\r",
+											"       due_date: { type: [\"null\", \"string\"] },\r",
+											"       start_date: { type: [\"null\", \"string\"] },\r",
+											"       folder: {\r",
+											"           type: \"object\",\r",
+											"           properties: {\r",
+											"               id: { type: \"string\" },\r",
+											"               name: { type: \"string\" },\r",
+											"               hidden: { type: \"boolean\" },\r",
+											"               access: { type: \"boolean\" }\r",
+											"           },\r",
+											"           required: [\"id\", \"name\", \"hidden\", \"access\"]\r",
+											"       },\r",
+											"       space: {\r",
+											"           type: \"object\",\r",
+											"           properties: {\r",
+											"               id: { type: \"string\" },\r",
+											"               name: { type: \"string\" },\r",
+											"               access: { type: \"boolean\" }\r",
+											"           },\r",
+											"           required: [\"id\", \"name\", \"access\"]\r",
+											"       },\r",
+											"       inbound_address: { type: \"string\" },\r",
+											"       archived: { type: \"boolean\" },\r",
+											"       override_statuses: { type: \"boolean\" },\r",
+											"       statuses: {\r",
+											"           type: \"array\",\r",
+											"           items: {\r",
+											"               type: \"object\",\r",
+											"               properties: {\r",
+											"                   id: { type: \"string\" },\r",
+											"                   status: { type: \"string\" },\r",
+											"                   orderindex: { type: \"integer\" },\r",
+											"                   color: { type: \"string\" },\r",
+											"                   type: { type: \"string\" },\r",
+											"                   status_group: { type: \"string\" }\r",
+											"               },\r",
+											"               required: [\"id\", \"status\", \"orderindex\", \"color\", \"type\", \"status_group\"]\r",
+											"           }\r",
+											"       },\r",
+											"       permission_level: { type: \"string\" }\r",
+											"   },\r",
+											"   required: [\"id\", \"name\", \"deleted\", \"orderindex\", \"content\", \"folder\", \"space\", \"inbound_address\", \"archived\", \"override_statuses\", \"statuses\", \"permission_level\"]\r",
+											"};\r",
+											"\r",
+											"const validate = ajv.compile(schema);\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Schema is valid\", function () {\r",
+											"   const valid = validate(response);\r",
+											"   pm.expect(valid, JSON.stringify(validate.errors)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"try {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const listID = jsonData.id;\r",
+											"\r",
+											"    // Save list ID for debugging or use in future requests\r",
+											"    pm.environment.set(\"list_id\", listID);\r",
+											"\r",
+											"    // Send a delete request (no await, use callback)\r",
+											"    pm.sendRequest({\r",
+											"        url: `https://api.clickup.com/api/v2/list/${listID}`,\r",
+											"        method: \"DELETE\",\r",
+											"        header: {\r",
+											"            \"Authorization\": pm.environment.get(\"TOKEN\")\r",
+											"        }\r",
+											"    }, function (err, res) {\r",
+											"        if (err) {\r",
+											"            console.error(\"Delete failed:\", err);\r",
+											"        } else {\r",
+											"            console.log(\"List deleted:\", res.status);\r",
+											"        }\r",
+											"    });\r",
+											"\r",
+											"} catch (err) {\r",
+											"    console.error(\"Failed to parse response:\", err);\r",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: \"https://api.clickup.com/api/v2/folder/90156774841/list\",\r",
+											"    method: \"POST\",\r",
+											"    header: {\r",
+											"        \"Authorization\": pm.environment.get(\"TOKEN\"),\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"    body: {\r",
+											"        mode: \"raw\",\r",
+											"        raw: JSON.stringify({\r",
+											"            name: pm.variables.replaceIn(\"{{$randomCatchPhrase}}\")\r",
+											"        })\r",
+											"    }\r",
+											"}, function (err, res) {\r",
+											"    if (err) {\r",
+											"        console.error(\"Request error:\", err);\r",
+											"    } else {\r",
+											"        try {\r",
+											"            var jsonData = res.json();\r",
+											"            var listID = jsonData.id;\r",
+											"            var listName = jsonData.name;\r",
+											"\r",
+											"            // ✅ Use the variables here\r",
+											"            console.log(`Created list: ${listName} (ID: ${listID})`);\r",
+											"            pm.environment.set(\"list_id\", listID); // <- Save to environment\r",
+											"\r",
+											"        } catch (e) {\r",
+											"            console.error(\"Failed to parse JSON:\", e);\r",
+											"        }\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/list/{{list_id}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"list",
+										"{{list_id}}"
+									]
+								},
+								"description": "Generated from cURL: curl --request GET \\\r\n     --url https://api.clickup.com/api/v2/list/901510839933 \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json'"
+							},
+							"response": []
+						},
+						{
+							"name": "Update List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check name is updated\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var expectedName =\r",
+											"        pm.collectionVariables.get(\"ListName\");\r",
+											"    pm.expect(jsonData.name).to.eql(expectedName);\r",
+											"});\r",
+											"\r",
+											"//pm.test(\"Status code is 400\", function () {\r",
+											"//    pm.response.to.have.status(400);\r",
+											"//});\r",
+											"//pm.test(\"Body includes Authorization header required\", function () {\r",
+											"//    pm.expect(pm.response.text()).to.include(\"Authorization header required\");\r",
+											"//});\r",
+											"\r",
+											"\r",
+											"\r",
+											"//pm.test(\"Check name\" , function () {\r",
+											"//    var jsonData = pm.response.json();\r",
+											"//    var listName = jsonData.name;\r",
+											"//    var listID = jsonData.id;\r",
+											"//   console.log(\"My json object will be below\");\r",
+											"//    console.log(jsonData.name);\r",
+											"//    console.log(\"my listName:\");\r",
+											"//    console.log(listName);\r",
+											"//    console.log(\"my listID:\");\r",
+											"//    console.log(listID);\r",
+											"//   console.log(\"My json object will be above\")\r",
+											"//pm.expect(jsonData.value).to.eql(100);\r",
+											"//});\r",
+											"\r",
+											"//pm.test(\"Check that List id is 901510840110\", function () {\r",
+											"//    var jsonData = pm.response.json();\r",
+											"//    pm.expect(jsonData.id).to.eql(\"901510840110\");\r",
+											"//});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"console.log(\"before\")\r",
+											"//Math.floor(Math.random()*1000)+1;\r",
+											"//const random = \"TestList\" + randomNumber;\r",
+											"//pm.variables.set(\"randomName\",randomName);\r",
+											"\r",
+											"\r",
+											"var name = pm.variables.replaceIn(\"{{$randomFullName}}\")\r",
+											"console.log(\"this is my generated name\")\r",
+											"console.log(name)\r",
+											"pm.collectionVariables.set(\"ListName\", name);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "content-type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n  \"due_date_time\": true,\r\n  \"unset_status\": true,\r\n  \"name\": \"{{ListName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/list/{{list_id}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"list",
+										"{{list_id}}"
+									]
+								},
+								"description": "Generated from cURL: curl --request PUT \\\r\n     --url https://api.clickup.com/api/v2/list/901510840110 \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json' \\\r\n     --header 'content-type: application/json' \\\r\n     --data '\r\n{\r\n  \"due_date_time\": true,\r\n  \"unset_status\": true,\r\n  \"name\": \"U GM List Name\"\r\n}\r\n'"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE"
+									},
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/list/{{list_id}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"list",
+										"{{list_id}}"
+									]
+								},
+								"description": "Generated from cURL: curl --request DELETE \\\r\n     --url https://api.clickup.com/api/v2/list/901510840110 \\\r\n     --header 'Authorization: pk_188542826_QM05SBZTT2GTHCSKF8QWOA1OBA3K5XBE' \\\r\n     --header 'accept: application/json'"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "ListName",
+			"value": ""
+		}
+	]
+}
